@@ -1,9 +1,7 @@
   ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       1
 
                    * PROYECTO 2 TRADUCCION ENTRE ROMANO Y ARABIGO
-
                    *DECLARACION CONSTANTES
-
                    SCDR   EQU   $102F
                    SCCR2  EQU   $102D
                    SCSR   EQU   $102E
@@ -14,8 +12,12 @@
                    CSCTL  EQU   $105D
                    OPT2   EQU   $1038
                    DDRD   EQU   $1009
-
-                   *DECLARACION DE VARIABLES PARA NUMEROS ROMANOS
+                                           *------------------------------------
+.                  -----------
+                                           *  DECLARACION DE VARIABLES PARA
+.                  NUMEROS ROMANOS
+                                           *------------------------------------
+.                  -----------
                    CARACTER_RECIBIDO               EQU $0000
                    M                                       EQU $0116   *VARIABLE
 .                  DE LETRAS M
@@ -44,203 +46,28 @@
                    MIL                                     EQU $0050   *
 .                  DIRECCION PARA ESCRIBIR UNIDADES DE MILLAR
 
-                   *DECLARACION DE VARIABLES PARA NUMEROS ARABIGOS
-                   DIRESULTADO                     EQU $0050
-                   DIR_INPUT                       EQU $0030
-                   DIR_TEXTUAL                             EQU $0070
-
+                                           *------------------------------------
+.                  -----------
+                                           *  DECLARACION DE VARIABLES PARA
+.                  NUMEROS ARABIGOS
+                                           *------------------------------------
+.                  -----------
                    BANDTRADUC                              EQU $0024
-
                    CHARNUMBER                              EQU $0010
-                   BANDERA_ERROR                   EQU $0011      * BANDERA DE
+                   BANDERA_ERROR                   EQU $0011      * VARIABLE DE
 .                  ERROR PARA ARABIGOS
                    CONTADOR                                EQU $0028
                    CONTADOR_EXT                    EQU $0010
                                            *------------------------------------
-.                  --
-                                           *  ESPACIO PARA LAS CADENAS A MOSTRAR
+.                  -----------
+                                           *  DIRECCIONES A UTILIZAR
                                            *------------------------------------
-.                  --
-                                           ORG $3000
-  3000 45 52 52 4F MENSAJE_E_ROMANO        FCC "ERROR, NUMERO ROMANO INVALIDO."
-. 3004 52 2C 20 4E *29 CARACTERES
-. 3008 55 35 45 52
+.                  -----------
+                   DIRESULTADO                     EQU $0050
+                   DIR_INPUT                       EQU $0030
   ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       2
 
-. 300C 4F 20 52 4F
-. 3010 4D 41 4E 32
-. 3014 20 49 4E 56
-. 3018 41 4C 49 44
-. 301C 4F 2E
-  301E 45 52 52 4F MENSAJE_E_ARABIGO       FCC "ERROR, NUMERO ARABIGO INVALIDO."
-. 3022 52 2C 20 4E *30
-. 3026 55 4D 45 52
-. 302A 4F 20 41 52
-. 302E 41 42 49 47
-. 3032 4F 20 49 4E
-. 3036 56 41 4C 49
-. 303A 44 20 2E
-  303D 45 52 52 4F MENSAJE_E_RANGO         FCC "ERROR, NUMERO FUERA DE RANGO."
-. 3041 52 2C 20 4E *28
-. 3045 55 4D 45 52
-. 3049 4F 20 46 55
-. 304D 45 52 41 20
-. 3051 44 45 20 52
-. 3055 41 4E 47 4F
-. 3059 2E
-                                           *------------------------------------
-.                  --
-                                           * FCC PARA LA TRADUCCION A LETRAS
-                                           *------------------------------------
-.                  --
-  305A 75 6E 6F 20 UNO_L                           FCC "uno  "
-. 305E 20
-  305F 64 6F 73 20 DOS_L                           FCC "dos "
-  3063 74 72 65 73 TRES_L                          FCC     "tres "
-. 3067 20
-  3068 63 75 61 74 CUATRO_L                        FCC     "cuatro "
-. 306C 72 6F 20
-  306F 63 69 6E 63 CINCO_L                         FCC     "cinco "
-. 3073 6F 20
-  3075 73 65 69 73 SEIS_L                          FCC     "seis "
-. 3079 20
-  307A 73 69 65 74 SIETE_L                         FCC     "siete "
-. 307E 65 20
-  3080 6F 63 68 6F OCHO_L                          FCC     "ocho "
-. 3084 20
-  3085 6E 75 65 76 NUEVE_L                         FCC     "nueve "
-. 3089 65 20
-  308B 64 69 65 63 DIECI_L                         FCC "dieci "
-. 308F 69 20
-  3091 64 69 65 7A DIEZ_L                          FCC     "diez "
-. 3095 20
-  3096 6F 6E 63 65 ONCE_L                          FCC "once "
-. 309A 20
-  309B 64 6F 63 65 DOCE_L                          FCC "doce "
-. 309F 20
-  30A0 74 72 65 63 TRECE_L                         FCC "trece "
-. 30A4 65 20
-  30A6 63 61 74 6F CATORCE_L                       FCC "catorce "
-. 30AA 72 63 65 20
-  30AE 71 75 69 6E QUINCE_L                        FCC "quince "
-. 30B2 63 65 20
-  30B5 64 69 65 63 DIECISEIS_L                     FCC "diecisEis "
-. 30B9 69 73 45 69
-. 30BD 73 20
-  30BF 64 69 65 63 DIECISIETE_L            FCC "diecisiete "
-. 30C3 69 73 69 65
-. 30C7 74 65 20
-  30CA 64 69 65 63 DIECIOCHO_L                     FCC "dieciocho "
-. 30CE 69 6F 63 68
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       3
-
-. 30D2 6F 20
-  30D4 64 69 65 63 DIECINUEVE_L            FCC "diecinueve "
-. 30D8 69 6E 75 65
-. 30DC 76 65 20
-  30DF 76 65 69 6E VEINTE_L                        FCC "veinte "
-. 30E3 74 65 20
-  30E6 76 65 69 6E VEINTIUNO_L                     FCC "veintiuno "
-. 30EA 74 69 75 6E
-. 30EE 6F 20
-  30F0 76 65 69 6E VEINTIDOS_L                     FCC "veintidOs"
-. 30F4 74 69 64 4F
-. 30F8 73
-  30F9 76 65 69 6E VEINTITRES_L            FCC "veintitrEs"
-. 30FD 74 69 74 72
-. 3101 45 73
-  3103 76 65 69 6E VEINTICUATRO_L          FCC "veinticuatro "
-. 3107 74 69 63 75
-. 310B 61 74 72 6F
-. 310F 20
-  3110 76 65 69 6E VEINTICINCO_L           FCC "veinticinco "
-. 3114 74 69 63 69
-. 3118 6E 63 6F 20
-  311C 76 65 69 6E VEINTISEIS_L            FCC "veintisEis "
-. 3120 74 69 73 45
-. 3124 69 73 20
-  3127 76 65 69 6E VEINTISIETE_L           FCC "veintisiete "
-. 312B 74 69 73 69
-. 312F 65 74 65 20
-  3133 76 65 69 6E VEINTIOCHO_L            FCC "veintiocho "
-. 3137 74 69 6F 63
-. 313B 68 6F 20
-  313E 76 65 69 6E VEINTINUEVE_L           FCC "veintinueve "
-. 3142 74 69 6E 75
-. 3146 65 76 65 20
-  314A 79 20       Y_L                                     FCC "y "
-  314C 74 72 65 69 TREINTA_L                       FCC "treinta "
-. 3150 6E 74 61 20
-  3154 63 75 61 72 CUARENTA_L                      FCC "cuarenta "
-. 3158 65 6E 74 61
-. 315C 20
-  315D 63 69 6E 63 CINCUENTA_L                     FCC "cincuenta "
-. 3161 75 65 6E 74
-. 3165 61 20
-  3167 73 65 73 65 SESENTA_L                       FCC "sesenta "
-. 316B 6E 74 61 20
-  316F 73 65 74 65 SETENTA_L                       FCC "setenta "
-. 3173 6E 74 61 20
-  3177 6F 63 68 65 OCHENTA_L                       FCC "ochenta "
-. 317B 6E 74 61 20
-  317F 6E 6F 76 65 NOVENTA_L                       FCC "noventa "
-. 3183 6E 74 61 20
-  3187 63 69 65 6E CIEN_L                          FCC "cien "
-. 318B 20
-  318C 63 69 65 6E CIENTO_L                        FCC "ciento "
-. 3190 74 6F 20
-  3193 63 69 65 6E CIENTOS_L                       FCC "cientos "
-. 3197 74 6F 73 20
-  319B 71 75 69 6E QUINIENTOS_L            FCC "quinientos "
-. 319F 69 65 6E 74
-. 31A3 6F 73 20
-  31A6 73 65 74 65 SETECIENTOS_L           FCC "setecientos "
-. 31AA 63 69 65 6E
-. 31AE 74 6F 73 20
-  31B2 6E 6F 76 65 NOVECIENTOS_L           FCC "novecientos "
-. 31B6 63 69 65 6E
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       4
-
-. 31BA 74 6F 73 20
-  31BE 6D 69 6C 20 MIL_L                           FCC "mil "
-                                                   *----------------------------
-.                  ----------
-                                                   *  FCC PARA LA TRADUCCION
-.                  ARABIGO - ROMANO
-                                                   *----------------------------
-.                  ----------
-  31C2 43 20       CIEN                            FCC "C "                *100
-  31C4 43 43 20    DOSCIENTOS          FCC "CC "                   *200
-  31C7 43 43 43 20 TRESCIENTOS         FCC "CCC "          *300
-  31CB 43 44 20    CUATROCIENTOS       FCC "CD "                   *400
-  31CE 44 20       QUINIENTOS          FCC "D "                    *500
-  31D0 44 43 20    SEISCIENTOS         FCC "DC "                   *600
-  31D3 44 43 43 20 SETECIENTOS             FCC "DCC "              *700
-  31D7 44 43 43 43 OCHOCIENTOS             FCC "DCCC "             *800
-. 31DB 20
-  31DC 43 4D 20    NOVECIENTOS             FCC "CM "               *900
-  31DF 58 20       DIEZ                    FCC "X "            *10
-  31E1 58 58 20    VEINTE              FCC "XX "           *20
-  31E4 58 58 58 20 TREINTA                 FCC "XXX "          *30
-  31E8 58 4C 20    CUARENTA            FCC "XL "           *40
-  31EB 4C 20       CINCUENTA           FCC "L "            *50
-  31ED 4C 58 20    SESENTA                         FCC "LX "           *60
-  31F0 4C 58 58 20 SETENTA                         FCC "LXX "          *70
-  31F4 4C 58 58 58 OCHENTA                         FCC "LXXX "         *80
-. 31F8 20
-  31F9 58 43 20    NOVENTA                         FCC "XC "               *90
-  31FC 49 20       UNO                                     FCC "I "
-.                  *1
-  31FE 49 49 20    DOS                                     FCC "II "
-.                  *2
-  3201 49 49 49 20 TRES                            FCC "III "              *3
-  3205 49 56 20    CUATRO                          FCC "IV "               *4
-  3208 56 20       CINCO                           FCC "V "                *5
-  320A 56 49 20    SEIS                            FCC "VI "               *6
-  320D 56 49 49 20 SIETE                           FCC "VII "              *7
-  3211 56 49 49 49 OCHO                            FCC "VIII "         *8
-. 3215 20
-  3216 49 58 20    NUEVE                           FCC "IX "           *9
+                   DIR_TEXTUAL                             EQU $0070
 
 
                                    ORG $8000
@@ -251,8 +78,7 @@
 .                  CONFIG EL PUERTO SERIAL
   8006 BD 84 E0                    JSR LIMPIEZA
   8009 BD 80 AA                    JSR INICIALIZAR
-
-                   CICLATE1
+                   CYCLEIN
   800C 86 3F                       LDAA    #'?
   800E 97 00                       STAA    CARACTER_RECIBIDO
                    CICLO
@@ -260,42 +86,30 @@
   8012 81 3F                       CMPA    #'?
   8014 27 FA                       BEQ     CICLO
 
-
-                   ENTRADA
+                   ENTRADARABIGOS
   8016 81 3D               CMPA #61            *Valida que le llegue un = para
 .                  saber que es fin de la cadena que mete el usuario
-  8018 27 39                   BEQ TRADUCCION_A_ROMANO
-
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       5
-
+  8018 27 39                   BEQ ROMANOTRADUCT
   801A 81 4F               CMPA #'O  *CASO EN QUE RECIBA OK
   801C 27 21               BEQ CASOO_ARABIGO
   801E 81 4B               CMPA #'K
   8020 27 25               BEQ CASOOK_ARABIGO  *CASO EN QUE RECIBA UNA K
-
-  8022 BD 80 DF                    JSR VALIDACION_ARABIGO          *REGRESA UN 1
-.                  EN B SI ES ARABIGO
+  8022 BD 80 DF                    JSR ISARABIGO           *REGRESA UN 1 EN B SI
+.                  ES ARABIGO
   8025 C1 01                       CMPB #1
-  8027 26 0F                       BNE ENTRADA_INTERMEDIO_ROMANO
-
-
-
+  8027 26 0F                       BNE SALTOINROMANO
   8029 D6 10               LDAB    CHARNUMBER
   802B C1 03               CMPB    #3
-  802D 22 6E               BHI     ERROR_CANTIDAD       *POR SI YA LLEGARON LOS
-.                  4 CARACTERES ES UN ERROR
-
+  802D 22 6E               BHI     ERNUMRANGE       *POR SI YA LLEGARON LOS 4
+.                  CARACTERES ES UN ERROR
   802F 5C                  INCB
   8030 D7 10               STAB CHARNUMBER                     *INCREMENTAMOS EL
 .                  DE CARACTERES
-
   8032 A7 00               STAA $00,X
   8034 08                  INX                         *CAMBIAMOS EL CONTADOR DE
 .                  LA SIGUIENTE MEMORIA A ESCRIBIR
-
-  8035 7E 80 0C            JMP CICLATE1
-
-                   ENTRADA_INTERMEDIO_ROMANO
+  8035 7E 80 0C            JMP CYCLEIN
+                   SALTOINROMANO
   8038 C6 02                       LDAB #2
   803A D7 24                       STAB BANDTRADUC
   803C 7E 82 8D                    JMP ENTRADA_ROMANO
@@ -304,51 +118,47 @@
   803F D6 23                       LDAB O
   8041 5C                          INCB
   8042 D7 23                       STAB O
-  8044 7E 80 0C                    JMP CICLATE1
+  8044 7E 80 0C                    JMP CYCLEIN
 
                    CASOOK_ARABIGO
   8047 D6 23                       LDAB O
   8049 C1 00                       CMPB #0
-  804B 27 50                       BEQ ERROR_CANTIDAD
+  804B 27 50                       BEQ ERNUMRANGE
   804D BD 80 AA                    JSR INICIALIZAR
                                    *JSR LIMPIEZA
-  8050 7E 80 0C            JMP CICLATE1
+  8050 7E 80 0C            JMP CYCLEIN
 
-                   TRADUCCION_A_ROMANO
+                   ROMANOTRADUCT
   8053 C6 01                       LDAB #1
   8055 D7 24                       STAB BANDTRADUC
-
   8057 96 11                       LDAA BANDERA_ERROR
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       3
+
   8059 81 01                       CMPA #1
-  805B 27 AF                       BEQ CICLATE1
+  805B 27 AF                       BEQ CYCLEIN
   805D 18 CE 00 50                 LDY #DIRESULTADO      *DIRECCION DE ESCRITURA
   8061 CE 00 30                    LDX #DIR_INPUT      *DIRECCION DE NUMS
   8064 96 10                       LDAA CHARNUMBER       *COMPARAMOS EL NUMERO
 .                  DE CARACTERES
   8066 81 01                       CMPA #1
-  8068 27 2A                       BEQ CASO_UNIDAD
+  8068 27 2A                       BEQ ESUNID
   806A 81 02                       CMPA #2
-  806C 27 22                       BEQ CASO_DECENA
+  806C 27 22                       BEQ ESDEC
   806E 81 03                       CMPA #3
-  8070 27 1A                       BEQ CASO_CENTENA
+  8070 27 1A                       BEQ ESCENTE
   8072 81 04                       CMPA #4
-  8074 27 03                       BEQ CASO_MILLAR
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       6
-
-
-  8076 7E 80 0C                    JMP CICLATE1          *POR SI NO SE VALIDA
+  8074 27 03                       BEQ ESMIL
+  8076 7E 80 0C                    JMP CYCLEIN           *POR SI NO SE VALIDA
 .                  BIEN
 
 
-                   CASO_MILLAR
-
+                   ESMIL
   8079 E6 00                       LDAB $00,X      *TOMAR EL PRIMER NUM CHAR Y
 .                  PONERLO EN B
   807B C1 31               CMPB #$31       *
-  807D 25 0D                       BLO CASO_CENTENA * VALIDA QUE SEA MAYOR A 0
-.                  EN ASCII
-
-                   CASO_ESCRIBE_MILLAR
+  807D 25 0D                       BLO ESCENTE * VALIDA QUE SEA MAYOR A 0 EN
+.                  ASCII
+                   CYCLEESMIL
   807F 86 4D                       LDAA #'M                * CARGA UNA M EN EL
 .                  ACUMULADOR A
   8081 18 A7 00                    STAA $00,Y      * ESCRIBE EN LA DIR DE Y
@@ -356,28 +166,27 @@
 .                  PARA CONTINUAR ESCRIBIENDO
   8086 5A                          DECB            * DECREMENTAMOS B
   8087 C1 30                       CMPB #$30       * ASCII DE 0
-  8089 26 F4                       BNE CASO_ESCRIBE_MILLAR       * MIENTRAS NO
+  8089 26 F4                       BNE CYCLEESMIL       * MIENTRAS NO
 .                  ENCONTREMOS UN PUNTO(.) SE REPITE
   808B 08                          INX             * PASAMOS AL SIGUIENTE NUM
 .                  DIGITO
-
-                   CASO_CENTENA
+                   ESCENTE
   808C BD 81 00                    JSR ESCRIBE_CENTENA
   808F 08                          INX
-                   CASO_DECENA
+                   ESDEC
                            * GUARDA EN A, EL VALOR DE X
   8090 BD 81 8B                    JSR ESCRIBE_DECENA
   8093 08                          INX
-                   CASO_UNIDAD
+                   ESUNID
   8094 BD 82 07                    JSR ESCRIBE_UNIDAD
   8097 7E 85 4A                    JMP MUCHO_TEXTO
-  809A 7E 80 0C                    JMP CICLATE1
+  809A 7E 80 0C                    JMP CYCLEIN
 
-                   ERROR_CANTIDAD
+                   ERNUMRANGE
   809D CE 00 50                    LDX #DIRESULTADO     * DIRECCION DEL MENSAJE
   80A0 18 CE 30 3D                 LDY #MENSAJE_E_RANGO    * ORG DE LOS FCC
   80A4 BD 80 EF                    JSR ERROR
-  80A7 7E 80 0C                    JMP CICLATE1
+  80A7 7E 80 0C                    JMP CYCLEIN
 
 
                    INICIALIZAR
@@ -390,6 +199,8 @@
   80BA 7F 00 10                    CLR CHARNUMBER
   80BD 7F 00 11                    CLR BANDERA_ERROR
                    CICLOLIMPIEZA1
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       4
+
   80C0 C6 FF                       LDAB #$ff
   80C2 18 E7 00                    STAB $00,Y
   80C5 18 08                       INY
@@ -400,24 +211,22 @@
   80D1 C6 FF                       LDAB #$FF
   80D3 18 E7 00                    STAB $00,Y
   80D6 18 08                       INY
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       7
-
   80D8 18 8C 00 40                 CPY #$0040
   80DC 26 F3                       BNE CICLOLIMPIEZA2
   80DE 39                          RTS
 
-                   VALIDACION_ARABIGO
+                   ISARABIGO
   80DF 81 30                       CMPA #$30               *Valor 0
   80E1 25 07                       BLO ERROR_ARABIGO
   80E3 81 3A                       CMPA #$3A               * Valor 9
   80E5 22 03                       BHI ERROR_ARABIGO
   80E7 C6 01                       LDAB #1
-                   FIN_VALIDACION_ARABIGO
+                   FIN_ISARABIGO
   80E9 39                          RTS
 
                    ERROR_ARABIGO
   80EA C6 04                       LDAB #4
-  80EC 7E 80 E9                    JMP FIN_VALIDACION_ARABIGO
+  80EC 7E 80 E9                    JMP FIN_ISARABIGO
 
 
 
@@ -457,22 +266,22 @@
   8121 81 08                       CMPA #8
   8123 27 45                       BEQ  NUM_8_CENTENA
   8125 81 09                       CMPA #9
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       5
+
   8127 27 4A                       BEQ  NUM_9_CENTENA
                    FIN_CENTENA
   8129 38                          PULX
   812A 39                  RTS
                    NUM_1_CENTENA
   812B CE 31 C2                    LDX #CIEN     * DIRECCION DE MEMORIA DE 100
-                                   *LDY #CIEN_L
+                                   *LDY #CIENWORD
   812E BD 81 7C                    JSR CICLO_ESCRITURA
   8131 7E 81 29                    JMP FIN_CENTENA
                    NUM_2_CENTENA
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       8
-
   8134 CE 31 C4                    LDX #DOSCIENTOS     * DIRECCION DE MEMORIA DE
 .                  200
-                                   *LDY #DOS_L
-                                   *LDY #MIL_L
+                                   *LDY #DOSWORD
+                                   *LDY #MILWORD
   8137 BD 81 7C                    JSR CICLO_ESCRITURA
   813A 7E 81 29                    JMP FIN_CENTENA
                    NUM_3_CENTENA
@@ -524,6 +333,8 @@
   818A 39                          RTS
 
                    ESCRIBE_DECENA
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       6
+
   818B 3C                          PSHX
   818C A6 00                       LDAA $00,X
   818E 80 30                       SUBA #$30
@@ -534,8 +345,6 @@
   8198 81 03                       CMPA #3
   819A 27 2C                       BEQ  NUM_3_DECENA
   819C 81 04                       CMPA #4
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       9
-
   819E 27 31                       BEQ  NUM_4_DECENA
   81A0 81 05                       CMPA #5
   81A2 27 36                       BEQ  NUM_5_DECENA
@@ -591,6 +400,8 @@
   8204 7E 81 B4                    JMP FIN_DECENA
 
                    ESCRIBE_UNIDAD
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       7
+
   8207 3C                          PSHX
   8208 A6 00                       LDAA $00,X
   820A 80 30                       SUBA #$30
@@ -601,8 +412,6 @@
   8214 81 03                       CMPA #3
   8216 27 2C                       BEQ  NUM_3_UNIDAD
   8218 81 04                       CMPA #4
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      10
-
   821A 27 31                       BEQ  NUM_4_UNIDAD
   821C 81 05                       CMPA #5
   821E 27 36                       BEQ  NUM_5_UNIDAD
@@ -654,10 +463,12 @@
   827A CE 32 16                    LDX #NUEVE     * DIRECCION DE MEMORIA DE 9
   827D BD 81 7C                    JSR CICLO_ESCRITURA
   8280 7E 82 30                    JMP FIN_UNIDAD
-                   CICLATE
+                   CYCLEINPUT
   8283 86 3F                       LDAA    #'?
   8285 97 00                       STAA    CARACTER_RECIBIDO
                    CUENTA
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       8
+
   8287 96 00               LDAA    CARACTER_RECIBIDO
   8289 81 3F               CMPA    #'?
   828B 27 FA               BEQ     CUENTA
@@ -665,16 +476,14 @@
                    ENTRADA_ROMANO
   828D D6 10                       LDAB CHARNUMBER
   828F C1 00                       CMPB #0
-  8291 26 0B                       BNE ERROR1
+  8291 26 0B                       BNE ERROR_ROMANO
   8293 81 4D               CMPA #'M
   8295 27 0D               BEQ CASOM
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      11
-
   8297 81 44               CMPA #'D
   8299 27 3F               BEQ CASOD
   829B 7E 83 0C            JMP SALTOINTERMEDIO1
 
-                   ERROR1
+                   ERROR_ROMANO
   829E BD 84 8D                    JSR ERROR_ESCRITURA
   82A1 7E 84 5C                    JMP FIN
 
@@ -682,13 +491,13 @@
   82A4 F6 01 18                    LDAB C                  *Verifica que le haya
 .                  llegado una C ANTES para el caso de CM
   82A7 C1 00               CMPB #0
-  82A9 26 1C               BNE CASOM1
+  82A9 26 1C               BNE CASOMEXE
 
 
   82AB F6 01 16                    LDAB M
   82AE C1 08                       CMPB #8         *Verifica que no sean ms de 9
 .                  M's
-  82B0 22 EC                       BHI ERROR1
+  82B0 22 EC                       BHI ERROR_ROMANO
 
   82B2 BD 84 AC                    JSR D_ERROR
 
@@ -701,12 +510,12 @@
   82BF D6 50               LDAB MIL
   82C1 5C                  INCB
   82C2 D7 50               STAB MIL
-  82C4 7E 82 83            JMP CICLATE
+  82C4 7E 82 83            JMP CYCLEINPUT
 
                    *CASO DONDE LLEGUE CM
-                   CASOM1
+                   CASOMEXE
   82C7 C1 01                       CMPB #1         *Compara si hay una segunda C
-  82C9 22 D3                       BHI ERROR1
+  82C9 22 D3                       BHI ERROR_ROMANO
   82CB CB 05                       ADDB #5
   82CD F7 01 18                    STAB C          *Carga en C el valor de 5
   82D0 C6 09                       LDAB #9
@@ -714,7 +523,7 @@
   82D4 A7 00                       STAA $00,X      *Escribir a partir de la
 .                  memoria $70 lo que le mande el usuario
   82D6 08                          INX             *Aumenta la X en 1
-  82D7 7E 82 83            JMP CICLATE     *Regresa a esperar
+  82D7 7E 82 83            JMP CYCLEINPUT     *Regresa a esperar
 
                    CASOD
 
@@ -723,24 +532,24 @@
   82E0 5C                  INCB
   82E1 F7 01 17            STAB D
   82E4 C1 02                       CMPB #2
-  82E6 27 B6                       BEQ ERROR1
+  82E6 27 B6                       BEQ ERROR_ROMANO
 .                  *VALIDA QUE NO LLEGUEN 2 O MS D's
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE       9
+
   82E8 A7 00                       STAA $00,X
 .                  *Escribir a partir de la memoria $70 lo que le mande el
 .                  usuario
   82EA 08                          INX
   82EB F6 01 18            LDAB C
   82EE C1 00               CMPB #0
-  82F0 26 07               BNE CASOD1
+  82F0 26 07               BNE CASODEXE
   82F2 C6 05               LDAB #5
   82F4 D7 51               STAB CENTENA
-  82F6 7E 82 83            JMP CICLATE
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      12
-
-                   CASOD1
+  82F6 7E 82 83            JMP CYCLEINPUT
+                   CASODEXE
                    ***** CASO CD
   82F9 C1 01                       CMPB #1
-  82FB 22 52                       BHI ERROR_1     *Compara si hay ms de una C
+  82FB 22 52                       BHI ERRORROM     *Compara si hay ms de una C
   82FD CB 05                       ADDB #5
   82FF F7 01 18                    STAB C          *Carga en C el valor de 5,
 .                  porque? ####
@@ -749,7 +558,7 @@
   8306 A7 00                       STAA $00,X      *Escribir a partir de la
 .                  memoria $70 lo que le mande el usuario
   8308 08                          INX             *Aumenta la X en 1
-  8309 7E 82 83            JMP CICLATE     *Regresa a esperar
+  8309 7E 82 83            JMP CYCLEINPUT     *Regresa a esperar
 
 
                    SALTOINTERMEDIO1
@@ -764,10 +573,10 @@
   8317 D6 20                       LDAB X
 .                  *VERIFICA QUE LLEGUE UN XC
   8319 C1 00                       CMPB #0
-  831B 26 20                       BNE CASOC1
+  831B 26 20                       BNE CASOCEXE
   831D F6 01 18                    LDAB C
   8320 C1 04                       CMPB #4
-  8322 22 2B                       BHI ERROR_1
+  8322 22 2B                       BHI ERRORROM
 
   8324 BD 84 BE                    JSR L_ERROR
 
@@ -775,7 +584,7 @@
   832A 5C                  INCB
   832B F7 01 18            STAB C
   832E C1 04                       CMPB #4
-  8330 27 1D                       BEQ ERROR_1             *VALIDA QUE NO
+  8330 27 1D                       BEQ ERRORROM            *VALIDA QUE NO
 .                  LLEGUEN 4 O MS C's
   8332 A7 00                       STAA $00,X
 .                  *Escribir a partir de la memoria $70 lo que le mande el
@@ -784,37 +593,38 @@
   8335 D6 51                       LDAB CENTENA
   8337 5C                  INCB
   8338 D7 51               STAB CENTENA
-  833A 7E 82 83            JMP CICLATE
+  833A 7E 82 83            JMP CYCLEINPUT
 
                    *CASO POR SI LLEGA UN XC
-                   CASOC1
+                   CASOCEXE
   833D C1 01                       CMPB #1
-  833F 22 0E                       BHI ERROR_1  * SI ES HAY MS DE UNA C ES ERROR
+  833F 22 0E                       BHI ERRORROM  * SI ES HAY MS DE UNA C ES
+.                  ERROR
   8341 CB 05                       ADDB #5          *PARA FUTURO ERROR XCX
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      10
+
   8343 D7 20                       STAB X
   8345 C6 09                       LDAB #9
   8347 D7 52                       STAB DECENA
   8349 A7 00                       STAA $00,X      *Escribir a partir de la
 .                  memoria $70 lo que le mande el usuario
   834B 08                          INX
-  834C 7E 82 83                    JMP CICLATE
+  834C 7E 82 83                    JMP CYCLEINPUT
 
-                   ERROR_1
+                   ERRORROM
   834F BD 84 8D                    JSR ERROR_ESCRITURA
   8352 7E 84 5C                    JMP FIN
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      13
-
 
                    CASOL
   8355 D6 20                       LDAB X
   8357 C1 00                       CMPB #0
-  8359 26 18                       BNE CASOL1
+  8359 26 18                       BNE CASOLEXE
   835B BD 84 CF                    JSR V_ERROR
   835E F6 01 19                    LDAB L
   8361 5C                  INCB
   8362 F7 01 19            STAB L
   8365 C1 02                       CMPB #2
-  8367 27 E6                       BEQ ERROR_1             *VALIDA QUE NO
+  8367 27 E6                       BEQ ERRORROM            *VALIDA QUE NO
 .                  LLEGUEN 2 O MS L's
   8369 A7 00                       STAA $00,X
 .                  *Escribir a partir de la memoria $70 lo que le mande el
@@ -823,12 +633,12 @@
   836C C6 05                       LDAB #5
   836E D7 52               STAB DECENA
 
-  8370 7E 82 83            JMP CICLATE
+  8370 7E 82 83            JMP CYCLEINPUT
 
                    *PARA CUANDO LLEGA XL
-                   CASOL1
+                   CASOLEXE
   8373 C1 01                       CMPB #1
-  8375 22 D8                       BHI ERROR_1     *Compara si hay ms de una X
+  8375 22 D8                       BHI ERRORROM     *Compara si hay ms de una X
   8377 CB 05                       ADDB #5
   8379 D7 20                       STAB X          *Suma en X el valor de 5,
 .                  porque? ####
@@ -838,7 +648,7 @@
 .                  memoria $70 lo que le mande el usuario
   8381 08                          INX             *Siguiente Direccion de
 .                  escritura
-  8382 7E 82 83            JMP CICLATE     *Regresa a esperar
+  8382 7E 82 83            JMP CYCLEINPUT     *Regresa a esperar
 
                                              **********SALTO INTERMEDIO
                    SALTOINTERMEDIO
@@ -855,35 +665,35 @@
   8394 BD 84 CF                    JSR V_ERROR
   8397 D6 22                       LDAB I
   8399 C1 00                       CMPB #0                 *VALIDA EL CASO IX
-  839B 26 20                       BNE CASOX1
+  839B 26 20                       BNE CASOXEXE
   839D D6 20                       LDAB X
   839F 5C                  INCB
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      11
+
   83A0 D7 20               STAB X
   83A2 C1 03                       CMPB #3
-  83A4 22 A9                       BHI ERROR_1
+  83A4 22 A9                       BHI ERRORROM
   83A6 D6 21                       LDAB V
   83A8 C1 00                       CMPB #0                 *VALIDA QUE NO HAYA
 .                  V's ANTES DE LA X
-  83AA 26 A3                       BNE ERROR_1
+  83AA 26 A3                       BNE ERRORROM
 
 
   83AC A7 00                       STAA $00,X                      *Escribir a
 .                  partir de la memoria $70 lo que le mande el usuario
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      14
-
   83AE 08                          INX
   83AF D6 52                       LDAB DECENA
   83B1 5C                          INCB
   83B2 D7 52                       STAB DECENA
-  83B4 7E 82 83            JMP CICLATE
+  83B4 7E 82 83            JMP CYCLEINPUT
 
-                   ERROR_2
+                   OTRO_ERRORROM
   83B7 BD 84 8D                    JSR ERROR_ESCRITURA
   83BA 7E 84 5C                    JMP FIN
                    *CUANDO LLEGUE UN IX
-                   CASOX1
+                   CASOXEXE
   83BD C1 01                       CMPB #1
-  83BF 22 8E                       BHI ERROR_1
+  83BF 22 8E                       BHI ERRORROM
   83C1 CB 06                       ADDB #6
   83C3 D7 22                       STAB I
   83C5 C6 09                       LDAB #9
@@ -891,30 +701,30 @@
   83C9 A7 00                       STAA $00,X      *Escribir a partir de la
 .                  memoria $70 lo que le mande el usuario
   83CB 08                          INX
-  83CC 7E 82 83                    JMP CICLATE
+  83CC 7E 82 83                    JMP CYCLEINPUT
 
                    CASOV
   83CF D6 22                       LDAB I
   83D1 C1 00                       CMPB #0
-  83D3 26 13                       BNE CASOV1
+  83D3 26 13                       BNE CASOVEXE
   83D5 D6 21                       LDAB V
   83D7 5C                          INCB
   83D8 D7 21                       STAB V
   83DA C1 02                       CMPB #2
-  83DC 27 D9                       BEQ ERROR_2             *VALIDA QUE NO
-.                  LLEGUEN 2 O MS V's       _2
+  83DC 27 D9                       BEQ OTRO_ERRORROM               *VALIDA QUE
+.                  NO LLEGUEN 2 O MS V's       _2
   83DE A7 00                       STAA $00,X
 .                  *Escribir a partir de la memoria $70 lo que le mande el
 .                  usuario
   83E0 08                          INX
   83E1 C6 05                       LDAB #5
   83E3 D7 53                       STAB UNIDAD
-  83E5 7E 82 83                    JMP CICLATE
+  83E5 7E 82 83                    JMP CYCLEINPUT
 
                    *CUANDO LLEGUE UN IV
-                   CASOV1
+                   CASOVEXE
   83E8 C1 01                       CMPB #1
-  83EA 22 CB                       BHI ERROR_2
+  83EA 22 CB                       BHI OTRO_ERRORROM
   83EC CB 06                       ADDB #6
   83EE D7 22                       STAB I
   83F0 C6 04                       LDAB #4
@@ -922,13 +732,15 @@
   83F4 A7 00                       STAA $00,X      *Escribir a partir de la
 .                  memoria $70 lo que le mande el usuario
   83F6 08                          INX
-  83F7 7E 82 83                    JMP CICLATE
+  83F7 7E 82 83                    JMP CYCLEINPUT
 
                    SALTOINTERMEDIO2
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      12
+
   83FA 81 4F               CMPA #'O  *CASO EN QUE RECIBA OK
-  83FC 27 1F               BEQ CASOO
+  83FC 27 1F               BEQ CASOO_ROMANO
   83FE 81 4B               CMPA #'K
-  8400 27 23               BEQ CASOOK
+  8400 27 23               BEQ CASOOK_ROMANO
   8402 81 3D                       CMPA #61            *Valida que le llegue un
 .                  = para saber que es fin de la cadena que mete el usuario
   8404 27 34                       BEQ ESCRIBECHAR
@@ -936,13 +748,11 @@
 
                    CASOI
 
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      15
-
   8409 D6 22                       LDAB I
   840B 5C                          INCB
   840C D7 22                       STAB I
   840E C1 03                       CMPB #3
-  8410 22 A5                       BHI ERROR_2
+  8410 22 A5                       BHI OTRO_ERRORROM
   8412 A7 00                       STAA $00,X
 .                  *Escribir a partir de la memoria $70 lo que le mande el
 .                  usuario
@@ -950,26 +760,26 @@
   8415 D6 53                       LDAB UNIDAD
   8417 5C                          INCB
   8418 D7 53                       STAB UNIDAD
-  841A 7E 82 83                    JMP CICLATE
+  841A 7E 82 83                    JMP CYCLEINPUT
 
-                   CASOO
+                   CASOO_ROMANO
   841D D6 23                       LDAB O
   841F 5C                          INCB
   8420 D7 23                       STAB O
   8422 7E 84 5C                    JMP FIN
 
-                   CASOOK
+                   CASOOK_ROMANO
   8425 D6 23                       LDAB O
   8427 C1 00                       CMPB #0
   8429 26 03                       BNE LIMPIEZA_SALTO      * Si existe una O
-  842B 7E 80 0C                    JMP CICLATE1
+  842B 7E 80 0C                    JMP CYCLEIN
                    LIMPIEZA_SALTO
   842E BD 84 E0                    JSR LIMPIEZA
   8431 BD 80 AA                    JSR INICIALIZAR
-  8434 7E 80 0C                    JMP CICLATE1
+  8434 7E 80 0C                    JMP CYCLEIN
 
                    SALTOINTERMEDIO1_ERROR
-  8437 7E 82 9E                    JMP ERROR1
+  8437 7E 82 9E                    JMP ERROR_ROMANO
 
                    ESCRIBECHAR
   843A D6 02                       LDAB BAND_ERROR
@@ -992,19 +802,19 @@
   8459 7E 84 5C                    JMP FIN
 
                    FIN
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      13
+
   845C 86 3F                       LDAA    #'?
   845E 97 00                       STAA    CARACTER_RECIBIDO
-                   CICLO1
+                   CICLOFIN
   8460 96 00                       LDAA    CARACTER_RECIBIDO
   8462 81 3F                       CMPA    #'?
 
-  8464 27 FA                       BEQ     CICLO1
+  8464 27 FA                       BEQ     CICLOFIN
   8466 81 4F                       CMPA #'O
-  8468 27 B3                       BEQ CASOO
+  8468 27 B3                       BEQ CASOO_ROMANO
   846A 81 4B                       CMPA #'K
-  846C 27 B7                       BEQ CASOOK
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      16
-
+  846C 27 B7                       BEQ CASOOK_ROMANO
   846E 7E 84 5C                    JMP FIN
 
                    *Configuracion del puerto serial
@@ -1034,7 +844,7 @@
   848F 5C                          INCB
   8490 D7 02                       STAB BAND_ERROR
   8492 CE 00 50                    LDX #DIRESULTADO     * DIRECCION DEL MENSAJE
-  8495 18 CE 30 00                 LDY #$3000     * ORG DE LOS FCC
+  8495 18 CE 30 00                 LDY #MENSAJE_E_ROMANO     * ORG DE LOS FCC
                    ERROR_CICLO
   8499 18 E6 00                    LDAB $00,Y
   849C E7 00                       STAB $00,X
@@ -1059,6 +869,8 @@
   84B5 27 07                       BEQ L_ERROR             * VALIDAR QUE M SI
 .                  PUEDE TENER UNA C ANTES
                    C_ERROR
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      14
+
   84B7 F6 01 18                    LDAB C
   84BA C1 00                       CMPB #0                 *VALIDA QUE NO HAYA
 .                  D's ANTES DE LA M
@@ -1070,8 +882,6 @@
   84C3 26 E1                       BNE ERROR_SALTO
   84C5 81 43                       CMPA #'C
   84C7 27 06                       BEQ V_ERROR             * VALIDAR QUE C SI
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      17
-
 .                  PUEDE TENER UNA X ANTES
                    X_ERROR
   84C9 D6 20                       LDAB X
@@ -1112,20 +922,22 @@
 
   850A CE 00 50            LDX #DIRESULTADO
   850D 18 CE 00 30         LDY #DIR_INPUT
-                   LIM
+                   LIMOSA
   8511 C6 FF               LDAB #$FF
   8513 18 E7 00            STAB $00,Y   ** EMPIEZA EN LA $50
   8516 18 08               INY
   8518 18 8C 00 F0         CPY #$00F0   ** TERMINA EN LA 70
-  851C 26 F3               BNE LIM
+  851C 26 F3               BNE LIMOSA
   851E 18 CE 00 30         LDY #DIR_INPUT  ** EMPIEZA EN LA 30
-                   LIM2
+                   LIMOSO
   8522 C6 FF               LDAB #$FF
   8524 18 E7 00            STAB $00,Y
   8527 18 08               INY
   8529 18 8C 00 40         CPY #$0040     ** TERMINA EN LA 40
-  852D 26 F3               BNE LIM2
+  852D 26 F3               BNE LIMOSO
   852F 39                  RTS
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      15
+
 
 
 
@@ -1137,8 +949,6 @@
   8537 18 CE 00 50         LDY #DIRESULTADO         ** LA TRADUCCION
   853B 18 A6 00            LDAA $00,Y
   853E 7E 85 67            JMP ENTRADA_MILES
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      18
-
 
                    ENTRADA_INTERMEDIA_UNIDADES
   8541 7E 88 F9            JMP ENTRADA_UNIDADES
@@ -1193,51 +1003,51 @@
   8597 18 38               PULY
   8599 18 08               INY
   859B 7E 85 F8            JMP ENTRADA_CENTENAS
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      16
+
 
                    ESCRIBE_MIL
-  859E 18 CE 31 BE         LDY #MIL_L
+  859E 18 CE 31 BE         LDY #MILWORD
   85A2 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85A5 7E 85 97            JMP ESCRIBE_MIL_FIN
 
                    ESCRIBE_DOS_MIL
-  85A8 18 CE 30 5F         LDY #DOS_L
+  85A8 18 CE 30 5F         LDY #DOSWORD
   85AC BD 89 82            JSR CICLO_MUCHO_TEXTO
   85AF 7E 85 9E            JMP ESCRIBE_MIL
 
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      19
-
                    ESCRIBE_TRES_MIL
-  85B2 18 CE 30 63         LDY #TRES_L
+  85B2 18 CE 30 63         LDY #TRESWORD
   85B6 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85B9 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_CUATRO_MIL
-  85BC 18 CE 30 68         LDY #CUATRO_L
+  85BC 18 CE 30 68         LDY #CUATROWORD
   85C0 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85C3 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_CINCO_MIL
-  85C6 18 CE 30 6F         LDY #CINCO_L
+  85C6 18 CE 30 6F         LDY #CINCOWORD
   85CA BD 89 82            JSR CICLO_MUCHO_TEXTO
   85CD 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_SEIS_MIL
-  85D0 18 CE 30 75         LDY #SEIS_L
+  85D0 18 CE 30 75         LDY #SEISWORD
   85D4 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85D7 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_SIETE_MIL
-  85DA 18 CE 30 7A         LDY #SIETE_L
+  85DA 18 CE 30 7A         LDY #SIETEWORD
   85DE BD 89 82             JSR CICLO_MUCHO_TEXTO
   85E1 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_OCHO_MIL
-  85E4 18 CE 30 80         LDY #OCHO_L
+  85E4 18 CE 30 80         LDY #OCHOWORD
   85E8 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85EB 7E 85 9E            JMP ESCRIBE_MIL
 
                    ESCRIBE_NUEVE_MIL
-  85EE 18 CE 30 85         LDY #NUEVE_L
+  85EE 18 CE 30 85         LDY #NUEVEWORD
   85F2 BD 89 82            JSR CICLO_MUCHO_TEXTO
   85F5 7E 85 9E            JMP ESCRIBE_MIL
 
@@ -1258,8 +1068,10 @@
   8613 27 78               BEQ ESCRIBE_CINCO_CIENTOS
   8615 7E 86 97            JMP OTRAS_CENTENAS
                    ESCRIBE_CIENTOS
-  8618 18 CE 31 93         LDY #CIENTOS_L
+  8618 18 CE 31 93         LDY #CIENTOSWORD
   861C BD 89 82            JSR CICLO_MUCHO_TEXTO
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      17
+
                    ESCRIBE_CIENTOS_FIN
   861F 18 38               PULY
   8621 18 08               INY
@@ -1271,8 +1083,6 @@
   8628 18 08               INY
   862A 18 E6 00            LDAB $00,Y
   862D C1 30               CMPB #'0
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      20
-
   862F 26 21               BNE ESCRIBE_CIENTO_DEC
   8631 18 09               DEY
   8633 18 3C               PSHY
@@ -1286,7 +1096,7 @@
   8642 18 09               DEY
   8644 18 09               DEY
   8646 18 3C               PSHY
-  8648 18 CE 31 87         LDY #CIEN_L
+  8648 18 CE 31 87         LDY #CIENWORD
   864C BD 89 82            JSR CICLO_MUCHO_TEXTO
   864F 7E 86 1F            JMP ESCRIBE_CIENTOS_FIN
                    ESCRIBE_CIENTO_DEC
@@ -1300,32 +1110,34 @@
   865F 7E 86 62            JMP ESCRIBE_CIENTO
 
                    ESCRIBE_CIENTO
-  8662 18 CE 31 8C         LDY #CIENTO_L
+  8662 18 CE 31 8C         LDY #CIENTOWORD
   8666 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8669 7E 86 1F            JMP ESCRIBE_CIENTOS_FIN
 
                    ESCRIBE_DOS_CIENTOS
-  866C 18 CE 30 5F         LDY #DOS_L
+  866C 18 CE 30 5F         LDY #DOSWORD
   8670 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8673 09                  DEX
   8674 7E 86 18            JMP ESCRIBE_CIENTOS
 
                    ESCRIBE_TRES_CIENTOS
-  8677 18 CE 30 63         LDY #TRES_L
+  8677 18 CE 30 63         LDY #TRESWORD
   867B BD 89 82            JSR CICLO_MUCHO_TEXTO
   867E 09                  DEX
   867F 7E 86 18            JMP ESCRIBE_CIENTOS
 
                    ESCRIBE_CUATRO_CIENTOS
-  8682 18 CE 30 68         LDY #CUATRO_L
+  8682 18 CE 30 68         LDY #CUATROWORD
   8686 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8689 09                  DEX
   868A 7E 86 18            JMP ESCRIBE_CIENTOS
 
                    ESCRIBE_CINCO_CIENTOS
-  868D 18 CE 31 9B         LDY #QUINIENTOS_L
+  868D 18 CE 31 9B         LDY #QUINIENTOSWORD
   8691 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8694 7E 86 1F            JMP ESCRIBE_CIENTOS_FIN
+
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      18
 
                    OTRAS_CENTENAS
   8697 C1 36               CMPB #'6
@@ -1338,27 +1150,25 @@
   86A5 27 23               BEQ ESCRIBE_NUEVE_CIENTOS
   86A7 7E 86 18            JMP ESCRIBE_CIENTOS
 
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      21
-
                    ESCRIBE_SEIS_CIENTOS
-  86AA 18 CE 30 75         LDY #SEIS_L
+  86AA 18 CE 30 75         LDY #SEISWORD
   86AE BD 89 82            JSR CICLO_MUCHO_TEXTO
   86B1 09                  DEX
   86B2 7E 86 18            JMP ESCRIBE_CIENTOS
 
                    ESCRIBE_SIETE_CIENTOS
-  86B5 18 CE 31 A6         LDY #SETECIENTOS_L
+  86B5 18 CE 31 A6         LDY #SETECIENTOSWORD
   86B9 BD 89 82            JSR CICLO_MUCHO_TEXTO
   86BC 7E 86 1F            JMP ESCRIBE_CIENTOS_FIN
 
                    ESCRIBE_OCHO_CIENTOS
-  86BF 18 CE 30 80         LDY #OCHO_L
+  86BF 18 CE 30 80         LDY #OCHOWORD
   86C3 BD 89 82            JSR CICLO_MUCHO_TEXTO
   86C6 09                  DEX
   86C7 7E 86 18            JMP ESCRIBE_CIENTOS
 
                    ESCRIBE_NUEVE_CIENTOS
-  86CA 18 CE 31 B2         LDY #NOVECIENTOS_L
+  86CA 18 CE 31 B2         LDY #NOVECIENTOSWORD
   86CE BD 89 82            JSR CICLO_MUCHO_TEXTO
   86D1 7E 86 1F            JMP ESCRIBE_CIENTOS_FIN
 
@@ -1394,38 +1204,38 @@
   870A C1 34               CMPB #'4
   870C 27 32               BEQ ESCRIBE_CATORCE
   870E C1 35               CMPB #'5
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      19
+
   8710 27 38               BEQ ESCRIBE_QUINCE
-  8712 7E 87 54            JMP ESCRIBE_DIECI_L
+  8712 7E 87 54            JMP ESCRIBE_DIECIWORD
   8715 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_DIEZ
-  8718 18 CE 30 91         LDY #DIEZ_L
+  8718 18 CE 30 91         LDY #DIEZWORD
   871C BD 89 82            JSR CICLO_MUCHO_TEXTO
   871F 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_ONCE
-  8722 18 CE 30 96         LDY #ONCE_L
+  8722 18 CE 30 96         LDY #ONCEWORD
   8726 BD 89 82            JSR CICLO_MUCHO_TEXTO
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      22
-
   8729 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_DOCE
-  872C 18 CE 30 9B         LDY #DOCE_L
+  872C 18 CE 30 9B         LDY #DOCEWORD
   8730 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8733 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_TRECE
-  8736 18 CE 30 A0         LDY #TRECE_L
+  8736 18 CE 30 A0         LDY #TRECEWORD
   873A BD 89 82            JSR CICLO_MUCHO_TEXTO
   873D 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_CATORCE
-  8740 18 CE 30 A6         LDY #CATORCE_L
+  8740 18 CE 30 A6         LDY #CATORCEWORD
   8744 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8747 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_QUINCE
-  874A 18 CE 30 AE         LDY #QUINCE_L
+  874A 18 CE 30 AE         LDY #QUINCEWORD
   874E BD 89 82            JSR CICLO_MUCHO_TEXTO
   8751 7E 89 7F            JMP FIN_MUCHO_TEXTO
-                   ESCRIBE_DIECI_L
-  8754 18 CE 30 8B         LDY #DIECI_L
+                   ESCRIBE_DIECIWORD
+  8754 18 CE 30 8B         LDY #DIECIWORD
   8758 BD 89 82            JSR CICLO_MUCHO_TEXTO
   875B 09                  DEX
   875C 7E 86 E8            JMP FIN_ENTRADA_DECENAS
@@ -1460,45 +1270,45 @@
                    *VEINTES
 
                    ESCRIBE_VEINTE
-  8793 18 CE 30 DF         LDY #VEINTE_L
+  8793 18 CE 30 DF         LDY #VEINTEWORD
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      20
+
   8797 BD 89 82            JSR CICLO_MUCHO_TEXTO
   879A 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTIUNO
-  879D 18 CE 30 E6         LDY #VEINTIUNO_L
+  879D 18 CE 30 E6         LDY #VEINTIUNOWORD
   87A1 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87A4 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTIDOS
-  87A7 18 CE 30 F0         LDY #VEINTIDOS_L
+  87A7 18 CE 30 F0         LDY #VEINTIDOSWORD
   87AB BD 89 82            JSR CICLO_MUCHO_TEXTO
   87AE 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTITRES
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      23
-
-  87B1 18 CE 30 F9         LDY #VEINTITRES_L
+  87B1 18 CE 30 F9         LDY #VEINTITRESWORD
   87B5 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87B8 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTICUATRO
-  87BB 18 CE 31 03         LDY #VEINTICUATRO_L
+  87BB 18 CE 31 03         LDY #VEINTICUATROWORD
   87BF BD 89 82            JSR CICLO_MUCHO_TEXTO
   87C2 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTICINCO
-  87C5 18 CE 31 10         LDY #VEINTICINCO_L
+  87C5 18 CE 31 10         LDY #VEINTICINCOWORD
   87C9 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87CC 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTISEIS
-  87CF 18 CE 31 1C         LDY #VEINTISEIS_L
+  87CF 18 CE 31 1C         LDY #VEINTISEISWORD
   87D3 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87D6 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTISIETE
-  87D9 18 CE 31 27         LDY #VEINTISIETE_L
+  87D9 18 CE 31 27         LDY #VEINTISIETEWORD
   87DD BD 89 82            JSR CICLO_MUCHO_TEXTO
   87E0 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTIOCHO
-  87E3 18 CE 31 33         LDY #VEINTIOCHO_L
+  87E3 18 CE 31 33         LDY #VEINTIOCHOWORD
   87E7 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87EA 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_VEINTINUEVE
-  87ED 18 CE 31 3E         LDY #VEINTINUEVE_L
+  87ED 18 CE 31 3E         LDY #VEINTINUEVEWORD
   87F1 BD 89 82            JSR CICLO_MUCHO_TEXTO
   87F4 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
@@ -1518,7 +1328,7 @@
                    ***TREINTAS
 
                    ESCRIBE_TREINTA
-  880A 18 CE 31 4C         LDY #TREINTA_L
+  880A 18 CE 31 4C         LDY #TREINTAWORD
   880E BD 89 82            JSR CICLO_MUCHO_TEXTO
 
   8811 18 38               PULY
@@ -1528,8 +1338,10 @@
   881A 18 3C               PSHY
   881C C1 30               CMPB #'0
   881E 27 07               BEQ FIN_ESCRIBE_TREINTA
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      21
 
-  8820 18 CE 31 4A         LDY #Y_L
+
+  8820 18 CE 31 4A         LDY #YWORD
   8824 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_TREINTA
   8827 7E 86 E8            JMP FIN_ENTRADA_DECENAS
@@ -1537,10 +1349,8 @@
 
                    **CUARENTAS
                    ESCRIBE_CUARENTA
-  882A 18 CE 31 54         LDY #CUARENTA_L
+  882A 18 CE 31 54         LDY #CUARENTAWORD
   882E BD 89 82            JSR CICLO_MUCHO_TEXTO
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      24
-
 
   8831 18 38               PULY
   8833 18 08               INY
@@ -1550,14 +1360,14 @@
   883C C1 30               CMPB #'0
   883E 27 07               BEQ FIN_ESCRIBE_CUARENTA
 
-  8840 18 CE 31 4A         LDY #Y_L
+  8840 18 CE 31 4A         LDY #YWORD
   8844 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_CUARENTA
   8847 7E 86 E8            JMP FIN_ENTRADA_DECENAS
 
                    **CINCUENTAS
                    ESCRIBE_CINCUENTA
-  884A 18 CE 31 5D         LDY #CINCUENTA_L
+  884A 18 CE 31 5D         LDY #CINCUENTAWORD
   884E BD 89 82            JSR CICLO_MUCHO_TEXTO
 
   8851 18 38               PULY
@@ -1568,14 +1378,14 @@
   885C C1 30               CMPB #'0
   885E 27 07               BEQ FIN_ESCRIBE_CINCUENTA
 
-  8860 18 CE 31 4A         LDY #Y_L
+  8860 18 CE 31 4A         LDY #YWORD
   8864 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_CINCUENTA
   8867 7E 86 E8            JMP FIN_ENTRADA_DECENAS
 
                    **SESENTAS
                    ESCRIBE_SESENTA
-  886A 18 CE 31 67         LDY #SESENTA_L
+  886A 18 CE 31 67         LDY #SESENTAWORD
   886E BD 89 82            JSR CICLO_MUCHO_TEXTO
 
   8871 18 38               PULY
@@ -1586,7 +1396,7 @@
   887C C1 30               CMPB #'0
   887E 27 07               BEQ FIN_ESCRIBE_SESENTA
 
-  8880 18 CE 31 4A         LDY #Y_L
+  8880 18 CE 31 4A         LDY #YWORD
   8884 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_SESENTA
   8887 7E 86 E8            JMP FIN_ENTRADA_DECENAS
@@ -1595,6 +1405,8 @@
   888A C1 37               CMPB #'7
   888C 27 0B               BEQ ESCRIBE_SETENTA
   888E C1 38               CMPB #'8
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      22
+
   8890 27 27               BEQ ESCRIBE_OCHENTA
   8892 C1 39               CMPB #'9
   8894 27 43               BEQ ESCRIBE_NOVENTA
@@ -1603,10 +1415,8 @@
 
                    *SETENTAS
                    ESCRIBE_SETENTA
-  8899 18 CE 31 6F         LDY #SETENTA_L
+  8899 18 CE 31 6F         LDY #SETENTAWORD
   889D BD 89 82            JSR CICLO_MUCHO_TEXTO
-
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      25
 
   88A0 18 38               PULY
   88A2 18 08               INY
@@ -1616,14 +1426,14 @@
   88AB C1 30               CMPB #'0
   88AD 27 07               BEQ FIN_ESCRIBE_SETENTA
 
-  88AF 18 CE 31 4A         LDY #Y_L
+  88AF 18 CE 31 4A         LDY #YWORD
   88B3 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_SETENTA
   88B6 7E 86 E8            JMP FIN_ENTRADA_DECENAS
 
                    *OCHENTAS
                    ESCRIBE_OCHENTA
-  88B9 18 CE 31 77         LDY #OCHENTA_L
+  88B9 18 CE 31 77         LDY #OCHENTAWORD
   88BD BD 89 82            JSR CICLO_MUCHO_TEXTO
 
 
@@ -1635,14 +1445,14 @@
   88CB C1 30               CMPB #'0
   88CD 27 07               BEQ FIN_ESCRIBE_OCHENTA
 
-  88CF 18 CE 31 4A         LDY #Y_L
+  88CF 18 CE 31 4A         LDY #YWORD
   88D3 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_OCHENTA
   88D6 7E 86 E8            JMP FIN_ENTRADA_DECENAS
 
                    *NOVENTAS
                    ESCRIBE_NOVENTA
-  88D9 18 CE 31 7F         LDY #NOVENTA_L
+  88D9 18 CE 31 7F         LDY #NOVENTAWORD
   88DD BD 89 82            JSR CICLO_MUCHO_TEXTO
 
   88E0 18 38               PULY
@@ -1653,7 +1463,7 @@
   88EB C1 30               CMPB #'0
   88ED 27 07               BEQ FIN_ESCRIBE_NOVENTA
 
-  88EF 18 CE 31 4A         LDY #Y_L
+  88EF 18 CE 31 4A         LDY #YWORD
   88F3 BD 89 82            JSR CICLO_MUCHO_TEXTO
                    FIN_ESCRIBE_NOVENTA
   88F6 7E 86 E8            JMP FIN_ENTRADA_DECENAS
@@ -1662,6 +1472,8 @@
   88F9 18 E6 00            LDAB $00,Y                              ** CARACTER
   88FC 18 3C               PSHY
                    *       CMPB #'0
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      23
+
                    *       BEQ CICLO_MUCHO_TEXTO
   88FE C1 31               CMPB #'1
   8900 27 23               BEQ ESCRIBE_UNO
@@ -1673,8 +1485,6 @@
   890C 27 35               BEQ ESCRIBE_CUATRO
   890E C1 35               CMPB #'5
   8910 27 3B               BEQ ESCRIBE_CINCO
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      26
-
   8912 C1 36               CMPB #'6
   8914 27 41               BEQ ESCRIBE_SEIS
   8916 C1 37               CMPB #'7
@@ -1686,53 +1496,55 @@
 
   8922 7E 89 7F            JMP FIN_MUCHO_TEXTO
                    ESCRIBE_UNO
-  8925 18 CE 30 5A         LDY #UNO_L
+  8925 18 CE 30 5A         LDY #UNOWORD
   8929 BD 89 82            JSR CICLO_MUCHO_TEXTO
   892C 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_DOS
-  892F 18 CE 30 5F         LDY #DOS_L
+  892F 18 CE 30 5F         LDY #DOSWORD
   8933 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8936 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_TRES
-  8939 18 CE 30 63         LDY #TRES_L
+  8939 18 CE 30 63         LDY #TRESWORD
   893D BD 89 82            JSR CICLO_MUCHO_TEXTO
   8940 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_CUATRO
-  8943 18 CE 30 68         LDY #CUATRO_L
+  8943 18 CE 30 68         LDY #CUATROWORD
   8947 BD 89 82            JSR CICLO_MUCHO_TEXTO
   894A 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_CINCO
-  894D 18 CE 30 6F         LDY #CINCO_L
+  894D 18 CE 30 6F         LDY #CINCOWORD
   8951 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8954 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_SEIS
-  8957 18 CE 30 75         LDY #SEIS_L
+  8957 18 CE 30 75         LDY #SEISWORD
   895B BD 89 82            JSR CICLO_MUCHO_TEXTO
   895E 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_SIETE
-  8961 18 CE 30 7A         LDY #SIETE_L
+  8961 18 CE 30 7A         LDY #SIETEWORD
   8965 BD 89 82            JSR CICLO_MUCHO_TEXTO
   8968 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_OCHO
-  896B 18 CE 30 80         LDY #OCHO_L
+  896B 18 CE 30 80         LDY #OCHOWORD
   896F BD 89 82            JSR CICLO_MUCHO_TEXTO
   8972 7E 89 7F            JMP FIN_MUCHO_TEXTO
 
                    ESCRIBE_NUEVE
-  8975 18 CE 30 85         LDY #NUEVE_L
+  8975 18 CE 30 85         LDY #NUEVEWORD
   8979 BD 89 82            JSR CICLO_MUCHO_TEXTO
   897C 7E 89 7F            JMP FIN_MUCHO_TEXTO
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      24
+
 
 
                    FIN_MUCHO_TEXTO
-  897F 7E 80 0C                    JMP CICLATE1
+  897F 7E 80 0C                    JMP CYCLEIN
 
 
                    CICLO_MUCHO_TEXTO
@@ -1740,8 +1552,6 @@
   8985 E7 00                       STAB $00,X      * ESCRIBE EL CHAR EN LA DIR
 .                  DE X
   8987 08                          INX
-  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      27
-
   8988 18 08                       INY                     * INCREMENTAMOS X Y Y
   898A C1 20                       CMPB #$20        * ASCII DE ESPACIO
   898C 26 F4                       BNE CICLO_MUCHO_TEXTO   * MIENTRAS NO
@@ -1750,7 +1560,191 @@
   8990 39                          RTS
 
 
+                                           *------------------------------------
+.                  --
+                                           *  ESPACIO PARA LAS CADENAS A MOSTRAR
+                                           *------------------------------------
+.                  --
+                                           ORG $3000
+  3000 45 52 52 4F MENSAJE_E_ROMANO        FCC "ERROR, NUMERO ROMANO INVALIDO."
+. 3004 52 2C 20 4E *29 CARACTERES
+. 3008 55 00 45 52
+. 300C 4F 20 52 4F
+. 3010 4D 41 4E 32
+. 3014 20 49 4E 56
+. 3018 41 4C 49 44
+. 301C 4F 2E
+  301E 45 52 52 4F MENSAJE_E_ARABIGO       FCC "ERROR, NUMERO ARABIGO INVALIDO."
+. 3022 52 2C 20 4E *30
+. 3026 55 4D 45 52
+. 302A 4F 20 41 52
+. 302E 41 42 49 47
+. 3032 4F 20 49 4E
+. 3036 56 41 4C 49
+. 303A 44 56 2E
+  303D 45 52 52 4F MENSAJE_E_RANGO         FCC "ERROR, NUMERO FUERA DE RANGO."
+. 3041 52 2C 20 4E *28
+. 3045 55 4D 45 52
+. 3049 4F 20 46 55
+. 304D 45 52 41 20
+. 3051 44 45 20 52
+. 3055 41 4E 47 4F
+. 3059 2E
+                                           *------------------------------------
+.                  --
+                                           * FCC PARA LA TRADUCCION A LETRAS
+                                           *------------------------------------
+.                  --
+  305A 75 6E 6F 20 UNOWORD                                 FCC "uno  "
+. 305E 20
+  305F 64 6F 73 20 DOSWORD                                 FCC "dos "
+  3063 74 72 65 73 TRESWORD                                FCC     "tres "
+. 3067 20
+  3068 63 75 61 74 CUATROWORD                              FCC     "cuatro "
+. 306C 72 6F 20
+  306F 63 69 6E 63 CINCOWORD                               FCC     "cinco "
+. 3073 6F 20
+  3075 73 65 69 73 SEISWORD                                FCC     "seis "
+. 3079 20
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      25
 
+  307A 73 69 65 74 SIETEWORD                               FCC     "siete "
+. 307E 65 20
+  3080 6F 63 68 6F OCHOWORD                                FCC     "ocho "
+. 3084 20
+  3085 6E 75 65 76 NUEVEWORD                               FCC     "nueve "
+. 3089 65 20
+  308B 64 69 65 63 DIECIWORD                               FCC "dieci "
+. 308F 69 20
+  3091 64 69 65 7A DIEZWORD                                FCC     "diez "
+. 3095 20
+  3096 6F 6E 63 65 ONCEWORD                                FCC "once "
+. 309A 20
+  309B 64 6F 63 65 DOCEWORD                                FCC "doce "
+. 309F 20
+  30A0 74 72 65 63 TRECEWORD                               FCC "trece "
+. 30A4 65 20
+  30A6 63 61 74 6F CATORCEWORD                             FCC "catorce "
+. 30AA 72 63 65 20
+  30AE 71 75 69 6E QUINCEWORD                              FCC "quince "
+. 30B2 63 65 20
+  30B5 64 69 65 63 DIECISEISWORD                   FCC "diecisEis "
+. 30B9 69 73 45 69
+. 30BD 73 20
+  30BF 64 69 65 63 DIECISIETEWORD                  FCC "diecisiete "
+. 30C3 69 73 69 65
+. 30C7 74 65 20
+  30CA 64 69 65 63 DIECIOCHOWORD                   FCC "dieciocho "
+. 30CE 69 6F 63 68
+. 30D2 6F 20
+  30D4 64 69 65 63 DIECINUEVEWORD                  FCC "diecinueve "
+. 30D8 69 6E 75 65
+. 30DC 76 65 20
+  30DF 76 65 69 6E VEINTEWORD                              FCC "veinte "
+. 30E3 74 65 20
+  30E6 76 65 69 6E VEINTIUNOWORD                   FCC "veintiuno "
+. 30EA 74 69 75 6E
+. 30EE 6F 20
+  30F0 76 65 69 6E VEINTIDOSWORD                   FCC "veintidOs"
+. 30F4 74 69 64 4F
+. 30F8 73
+  30F9 76 65 69 6E VEINTITRESWORD                  FCC "veintitrEs"
+. 30FD 74 69 74 72
+. 3101 45 73
+  3103 76 65 69 6E VEINTICUATROWORD                FCC "veinticuatro "
+. 3107 74 69 63 75
+. 310B 61 74 72 6F
+. 310F 20
+  3110 76 65 69 6E VEINTICINCOWORD                 FCC "veinticinco "
+. 3114 74 69 63 69
+. 3118 6E 63 6F 20
+  311C 76 65 69 6E VEINTISEISWORD                  FCC "veintisEis "
+. 3120 74 69 73 45
+. 3124 69 73 20
+  3127 76 65 69 6E VEINTISIETEWORD                 FCC "veintisiete "
+. 312B 74 69 73 69
+. 312F 65 74 65 20
+  3133 76 65 69 6E VEINTIOCHOWORD                  FCC "veintiocho "
+. 3137 74 69 6F 63
+. 313B 68 6F 20
+  313E 76 65 69 6E VEINTINUEVEWORD                 FCC "veintinueve "
+. 3142 74 69 6E 75
+. 3146 65 76 65 20
+  314A 79 20       YWORD                                   FCC "y "
+  314C 74 72 65 69 TREINTAWORD                             FCC "treinta "
+. 3150 6E 74 61 20
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      26
+
+  3154 63 75 61 72 CUARENTAWORD                    FCC "cuarenta "
+. 3158 65 6E 74 61
+. 315C 20
+  315D 63 69 6E 63 CINCUENTAWORD                   FCC "cincuenta "
+. 3161 75 65 6E 74
+. 3165 61 20
+  3167 73 65 73 65 SESENTAWORD                             FCC "sesenta "
+. 316B 6E 74 61 20
+  316F 73 65 74 65 SETENTAWORD                             FCC "setenta "
+. 3173 6E 74 61 20
+  3177 6F 63 68 65 OCHENTAWORD                             FCC "ochenta "
+. 317B 6E 74 61 20
+  317F 6E 6F 76 65 NOVENTAWORD                             FCC "noventa "
+. 3183 6E 74 61 20
+  3187 63 69 65 6E CIENWORD                                FCC "cien "
+. 318B 20
+  318C 63 69 65 6E CIENTOWORD                              FCC "ciento "
+. 3190 74 6F 20
+  3193 63 69 65 6E CIENTOSWORD                             FCC "cientos "
+. 3197 74 6F 73 20
+  319B 71 75 69 6E QUINIENTOSWORD                  FCC "quinientos "
+. 319F 69 65 6E 74
+. 31A3 6F 73 20
+  31A6 73 65 74 65 SETECIENTOSWORD                 FCC "setecientos "
+. 31AA 63 69 65 6E
+. 31AE 74 6F 73 20
+  31B2 6E 6F 76 65 NOVECIENTOSWORD                 FCC "novecientos "
+. 31B6 63 69 65 6E
+. 31BA 74 6F 73 20
+  31BE 6D 69 6C 20 MILWORD                                 FCC "mil "
+                                                   *----------------------------
+.                  ----------
+                                                   *  FCC PARA LA TRADUCCION
+.                  ARABIGO - ROMANO
+                                                   *----------------------------
+.                  ----------
+  31C2 43 20       CIEN                            FCC "C "                *100
+  31C4 43 43 20    DOSCIENTOS          FCC "CC "                   *200
+  31C7 43 43 43 20 TRESCIENTOS         FCC "CCC "          *300
+  31CB 43 44 20    CUATROCIENTOS       FCC "CD "                   *400
+  31CE 44 20       QUINIENTOS          FCC "D "                    *500
+  31D0 44 43 20    SEISCIENTOS         FCC "DC "                   *600
+  31D3 44 43 43 20 SETECIENTOS             FCC "DCC "              *700
+  31D7 44 43 43 43 OCHOCIENTOS             FCC "DCCC "             *800
+. 31DB 20
+  31DC 43 4D 20    NOVECIENTOS             FCC "CM "               *900
+  31DF 58 20       DIEZ                    FCC "X "            *10
+  31E1 58 58 20    VEINTE              FCC "XX "           *20
+  31E4 58 58 58 20 TREINTA                 FCC "XXX "          *30
+  31E8 58 4C 20    CUARENTA            FCC "XL "           *40
+  31EB 4C 20       CINCUENTA           FCC "L "            *50
+  31ED 4C 58 20    SESENTA                         FCC "LX "           *60
+  31F0 4C 58 58 20 SETENTA                         FCC "LXX "          *70
+  31F4 4C 58 58 58 OCHENTA                         FCC "LXXX "         *80
+. 31F8 20
+  31F9 58 43 20    NOVENTA                         FCC "XC "               *90
+  31FC 49 20       UNO                                     FCC "I "
+.                  *1
+  31FE 49 49 20    DOS                                     FCC "II "
+.                  *2
+  3201 49 49 49 20 TRES                            FCC "III "              *3
+  3205 49 56 20    CUATRO                          FCC "IV "               *4
+  3208 56 20       CINCO                           FCC "V "                *5
+  320A 56 49 20    SEIS                            FCC "VI "               *6
+  320D 56 49 49 20 SIETE                           FCC "VII "              *7
+  ADDR B1 B2 B3 B4 E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      27
+
+  3211 56 49 49 49 OCHO                            FCC "VIII "         *8
+. 3215 20
+  3216 49 58 20    NUEVE                           FCC "IX "           *9
 
                    ***********************************
                    * ATENCION A INTERRUPCION SERIAL
@@ -1779,60 +1773,65 @@
 
   Symbol Table 
 
-  CASOOK             8425
-  ENTRADA_INTERMEDIA_UNIDADES 8541
   CUARENTA           31E8
-  DOCE_L             309B
-  CIENTOS_L          3193
+  ENTRADA_INTERMEDIA_UNIDADES 8541
+  CIENTOSWORD        3193
+  DIEZWORD           3091
+  DIECIOCHOWORD      30CA
   MENSAJE_E_ROMANO   3000
   CUATROCIENTOS      31CB
   TRES               3201
   NUM_3_CENTENA      813D
-  Y_L                314A
+  UNOWORD            305A
   NUM_2_DECENA       81BF
+  CYCLEESMIL         807F
   ESCRIBE_CUATRO     8943
-  SESENTA_L          3167
   CICLOLIMPIEZA1     80C0
   FIN_DECENA         81B4
   CICLOLIMPIEZA2     80D1
   SERIAL             8471
   ESCRIBE_DOS_MIL    85A8
-  VEINTICINCO_L      3110
-  CASO_CENTENA       808C
+  SESENTAWORD        3167
   NUEVE              3216
   OCHOCIENTOS        31D7
   ESCRIBE_ONCE       8722
-  ESCRIBE_DIECI_L    8754
+  FIN_ISARABIGO      80E9
   SETECIENTOS        31D3
   NUM_4_DECENA       81D1
   FIN_ESCRIBE_NOVENTA 88F6
+  ERNUMRANGE         809D
   FIN_ESCRIBE_SETENTA 88B6
-  Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      28
-
+  CIENTOWORD         318C
   ESCRIBE_VEINTE     8793
   ERROR              80EF
   ESCRIBE_MUCHO_TEXTO 8554
+  NUEVEWORD          3085
+  SETECIENTOSWORD    31A6
+  Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      28
+
   ESCRIBE_VEINTI     875F
   MUCHO_TEXTO        854A
-  DIECI_L            308B
   FIN_ESCRIBE_OCHENTA 88D6
   FIN_ENTRADA_DECENAS 86E8
-  NUM_4_CENTENA      8146
   QUINIENTOS         31CE
-  CUATRO_L           3068
+  NUM_4_CENTENA      8146
   MENSAJE_E_ARABIGO  301E
-  DIECISIETE_L       30BF
+  VEINTIUNOWORD      30E6
   NUM_6_DECENA       81E3
   SIETE              320D
+  YWORD              314A
+  CASOCEXE           833D
+  ESCENTE            808C
   C                  0118
   D                  0117
-  NUEVE_L            3085
+  SETENTAWORD        316F
   I                  0022
   NUM_2_UNIDAD       823B
-  ONCE_L             3096
+  VEINTISEISWORD     311C
   L                  0119
   CONTADOR_EXT       0010
   M                  0116
+  CIENWORD           3187
   O                  0023
   BAND_ERROR         0002
   FIN_UNIDAD         8230
@@ -1840,89 +1839,90 @@
   NUM_8_DECENA       81F5
   ESCRIBE_QUINCE     874A
   V                  0021
-  VEINTISEIS_L       311C
+  CINCUENTAWORD      315D
   X                  0020
+  VEINTISIETEWORD    3127
   ENTRADA_ROMANO     828D
   ESCRIBE_TRES       8939
   ESCRIBE_VEINTIUNO  879D
   ESCRIBECHAR        843A
   CSCTL              105D
-  NOVENTA_L          317F
   ENTRADA_MILES      8567
+  CASOLEXE           8373
   NUM_4_UNIDAD       824D
+  CUARENTAWORD       3154
   NUM_5_CENTENA      814F
-  DIEZ_L             3091
   ESCRIBE_NUEVE_MIL  85EE
   ESCRIBE_SEIS_CIENTOS 86AA
-  CASOC1             833D
   CASOO_ARABIGO      803F
   FIN_ESCRIBE_SESENTA 8887
-  VEINTINUEVE_L      313E
+  VEINTITRESWORD     30F9
+  TRECEWORD          30A0
   ESCRIBE_OCHO_CIENTOS 86BF
   NUM_6_UNIDAD       825F
+  ISARABIGO          80DF
   DIR_TEXTUAL        0070
   D_ERROR            84AC
   SCCR1              102C
-  CICLATE1           800C
   SCCR2              102D
-  CASOD1             82F9
+  VEINTIOCHOWORD     3133
   ESCRIBE_DOS        892F
-  CASO_MILLAR        8079
-  TRECE_L            30A0
   ESCRIBE_CIENTO     8662
   CUENTA             8287
   I_ERROR            84D9
-  CATORCE_L          30A6
+  DIECIWORD          308B
+  CASOXEXE           83BD
+  SEISCIENTOS        31D0
   NUM_8_UNIDAD       8271
   Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      29
 
-  SEISCIENTOS        31D0
   BAUD               102B
-  CASOV1             83E8
   CIEN               31C2
   BANDTRADUC         0024
   ESCRIBE_VEINTINUEVE 87ED
   NUM_6_CENTENA      8158
   ENTRADA_CENTENAS   85F8
   CINCO              3208
-  CICLO              8010
+  ONCEWORD           3096
   DOSCIENTOS         31C4
+  CICLO              8010
   ENTRADA_UNIDADES   88F9
-  DIECIOCHO_L        30CA
+  MILWORD            31BE
+  QUINCEWORD         30AE
   ESCRIBE_CIENTOS_FIN 861F
-  CICLO1             8460
+  DOCEWORD           309B
+  ESDEC              8090
   NOVECIENTOS        31DC
   FIN_CENTENA        8129
   ESCRIBE_SEIS_MIL   85D0
-  SETECIENTOS_L      31A6
-  X_ERROR            84C9
+  TREINTAWORD        314C
   CINCUENTA          31EB
+  X_ERROR            84C9
   CARACTER_RECIBIDO  0000
   ESCRIBE_VEINTISIETE 87D9
-  UNO_L              305A
   ESCRIBE_CUATRO_MIL 85BC
-  TRES_L             3063
   DECENA             0052
   LIMPIEZA_SALTO     842E
   SALTOINTERMEDIO1   830C
   ERROR_ESCRITURA    848D
   SALTOINTERMEDIO2   83FA
+  CYCLEINPUT         8283
   ESCRIBE_NUEVE      8975
   DOS                31FE
-  VEINTE_L           30DF
-  ERROR_CANTIDAD     809D
   CASOOK_ARABIGO     8047
   NUM_7_CENTENA      8161
   ESCRIBE_VEINTIOCHO 87E3
-  ENTRADA            8016
-  DOS_L              305F
-  CASOX1             83BD
+  NOVENTAWORD        317F
   OPT2               1038
   ESCRIBE_TRECE      8736
   ESCRIBE_TRES_MIL   85B2
   MENSAJE_E_RANGO    303D
-  CICLATE            8283
+  VEINTINUEVEWORD    313E
   C_ERROR            84B7
+  CASODEXE           82F9
+  ESMIL              8079
+  DOSWORD            305F
+  CASOOK_ROMANO      8425
   ESCRIBE_SIETE      8961
   ESCRIBE_OCHO_MIL   85E4
   NUM_1_DECENA       81B6
@@ -1931,107 +1931,101 @@
   ESCRIBE_TREINTA    880A
   NUM_8_CENTENA      816A
   UNIDAD             0053
+  DIECISIETEWORD     30BF
   ORIGEN_ROMANO      8537
-  ERROR_1            834F
-  ERROR_2            83B7
+  ROMANOTRADUCT      8053
   NUM_3_DECENA       81C8
-  DIECINUEVE_L       30D4
   RESET              FFFE
+  CASOMEXE           82C7
   OTRAS_CENTENAS     8697
   TREINTA            31E4
   CONTADOR           0028
   TRESCIENTOS        31C7
   Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      30
 
+  LIMOSA             8511
+  SEISWORD           3075
   INICIALIZAR        80AA
+  CUATROWORD         3068
   COMPARA_TANTOS     87F7
   CICLO_MUCHO_TEXTO  8982
   ESCRIBE_VEINTICINCO 87C5
   CHARNUMBER         0010
   ESCRIBE_CENTENA    8100
-  DIECISEIS_L        30B5
-  CINCUENTA_L        315D
+  VEINTIDOSWORD      30F0
+  CINCOWORD          306F
   NUM_5_DECENA       81DA
   ERROR_CICLO        8499
   ERROR_CICLO1       80F3
+  LIMOSO             8522
   FIN_ESCRIBE_CUARENTA 8847
-  LIM                8511
-  TREINTA_L          314C
   BANDERA_ERROR      0011
   ESCRIBE_DOCE       872C
+  CASOVEXE           83E8
   NUM_9_CENTENA      8173
-  OCHO_L             3080
   CENTENA            0051
   HPRIO              103C
   NUM_1_UNIDAD       8232
   ESCRIBE_CIENTOS    8618
+  ERROR_ROMANO       829E
   ESCRIBE_CATORCE    8740
+  SALTOINROMANO      8038
+  TRESWORD           3063
   ESCRIBE_UNO        8925
   NUM_7_DECENA       81EC
   ESCRIBE_DIECI      86EF
   SALTOINTERMEDIO1_ERROR 8437
   ESCRIBE_DECENA     818B
-  CIEN_L             3187
-  VEINTIUNO_L        30E6
   OCHO               3211
   ESCRIBE_MIL_FIN    8597
-  CASO_DECENA        8090
   SCSR               102E
+  QUINIENTOSWORD     319B
   NUM_3_UNIDAD       8244
   ESCRIBE_CINCO      894D
   DIEZ               31DF
   DIR_INPUT          0030
   FIN                845C
-  VEINTICUATRO_L     3103
-  VEINTIDOS_L        30F0
+  OCHOWORD           3080
   NUM_9_DECENA       81FE
-  VEINTITRES_L       30F9
-  OCHENTA_L          3177
   ESCRIBE_NOVENTA    88D9
   ESCRIBE_SETENTA    8899
   L_ERROR            84BE
-  SIETE_L            307A
-  CASO_ESCRIBE_MILLAR 807F
-  TRADUCCION_A_ROMANO 8053
   ESCRIBE_CINCO_MIL  85C6
   NUM_5_UNIDAD       8256
   ESCRIBE_CIENTO_UNI 8659
   ESCRIBE_OCHENTA    88B9
   ENTRADA_DECENAS    86D4
-  CASOL1             8373
-  VALIDACION_ARABIGO 80DF
   SEIS               320A
   NOVENTA            31F9
-  ESCRIBE_NUEVE_CIENTOS 86CA
   SETENTA            31F0
+  ESCRIBE_NUEVE_CIENTOS 86CA
   ESCRIBE_VEINTITRES 87B1
   CUATRO             3205
-  NOVECIENTOS_L      31B2
-  V_ERROR            84CF
-  Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      31
-
+  ENTRADARABIGOS     8016
   UNO                31FC
+  V_ERROR            84CF
   OCHENTA            31F4
   ESCRIBE_CIENTO_DEC 8652
-  LIM2               8522
   DDRD               1009
   NUM_7_UNIDAD       8268
-  ERROR1             829E
+  Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      31
+
   ESCRIBE_UNIDAD     8207
-  CASOM1             82C7
+  OTRO_ERRORROM      83B7
+  DIECINUEVEWORD     30D4
   ESCRIBE_CUATRO_CIENTOS 8682
   ESCRIBE_MIL        859E
-  QUINIENTOS_L       319B
   NUM_1_CENTENA      812B
-  CASO_UNIDAD        8094
+  CYCLEIN            800C
   SCDR               102F
   ESCRIBE_SIETE_CIENTOS 86B5
   VEINTE             31E1
-  VEINTISIETE_L      3127
+  SIETEWORD          307A
+  ESCRIBE_DIECIWORD  8754
   FIN_ESCRIBE_CINCUENTA 8867
   ESCRIBE_VEINTIDOS  87A7
   NUM_9_UNIDAD       827A
-  SETENTA_L          316F
+  CATORCEWORD        30A6
   ESCRIBE_VEINTICUATRO 87BB
   ESCRIBE_DOS_CIENTOS 866C
   CASOC              8317
@@ -2040,42 +2034,40 @@
   ESCRIBE_SESENTA    886A
   CASOI              8409
   ESCRIBE_OCHO       896B
-  MIL_L              31BE
-  QUINCE_L           30AE
+  DIECISEISWORD      30B5
   CASOL              8355
+  OCHENTAWORD        3177
   CASOM              82A4
   CICLO_ESCRITURA    817C
   ESCRIBE_DIEZ       8718
-  CASOO              841D
-  SEIS_L             3075
   FIN_MUCHO_TEXTO    897F
-  CUARENTA_L         3154
+  ESUNID             8094
+  VEINTEWORD         30DF
   FIN_ESCRIBE_TREINTA 8827
+  NOVECIENTOSWORD    31B2
+  CICLOFIN           8460
   CASOV              83CF
   SESENTA            31ED
   ESCRIBE_CINCO_CIENTOS 868D
   FIN_ERROR          84DF
   CASOX              8394
+  CASOO_ROMANO       841D
   NUM_2_CENTENA      8134
-  CIENTO_L           318C
   SPCR               1028
   ESCRIBE_CINCUENTA  884A
   ERROR_ARABIGO      80EA
-  ENTRADA_INTERMEDIO_ROMANO 8038
   ERROR_SALTO        84A6
+  ERRORROM           834F
   MIL                0050
   INICIO             8000
-  VEINTIOCHO_L       3133
   ESCRIBE_SEIS       8957
-  CINCO_L            306F
   COMPARA_OTROS_TANTOS 888A
   LIMPIEZA           84E0
   SALTOINTERMEDIO    8385
   ENTRADA_INTERMEDIA_DECENAS 8544
+  VEINTICUATROWORD   3103
   ESCRIBE_SIETE_MIL  85DA
   ESCRIBE_TRES_CIENTOS 8677
+  VEINTICINCOWORD    3110
   ENTRADA_INTERMEDIA_CENTENAS 8547
-  Symbol Table     E:\Repositorios\68hc11-1\Proyecto2.asc           PAGE      32
-
-  FIN_VALIDACION_ARABIGO 80E9
   DIRESULTADO        0050
